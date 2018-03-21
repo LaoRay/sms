@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.clubank.sms.manage.app.dao.AppInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.com.clubank.sms.manage.app.pojo.AppInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+    <result column="app_name" jdbcType="VARCHAR" property="appName" />
+    <result column="app_sort" jdbcType="VARCHAR" property="appSort" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="dismissal" jdbcType="VARCHAR" property="dismissal" />
+    <result column="third_id" jdbcType="VARCHAR" property="thirdId" />
+    <result column="signature" jdbcType="VARCHAR" property="signature" />
+    <result column="app_key" jdbcType="VARCHAR" property="appKey" />
+    <result column="send_total_quantity" jdbcType="INTEGER" property="sendTotalQuantity" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="enabled_mark" jdbcType="INTEGER" property="enabledMark" />
+    <result column="delete_mark" jdbcType="INTEGER" property="deleteMark" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, account_id, app_name, app_sort, status, dismissal, third_id, signature, app_key, send_total_quantity, 
+    create_date, modify_date, enabled_mark, delete_mark, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from app_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from app_info
+    where app_key = #{appKey,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from app_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.clubank.sms.manage.app.pojo.AppInfo">
+    insert into app_info (id, account_id, app_name, 
+      app_sort, status, dismissal, third_id, 
+      signature, app_key, send_total_quantity, 
+      create_date, modify_date, enabled_mark, 
+      delete_mark, description)
+    values (#{id,jdbcType=INTEGER}, #{accountId,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, 
+      #{appSort,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{dismissal,jdbcType=VARCHAR}, #{thirdId,jdbcType=VARCHAR}, 
+      #{signature,jdbcType=VARCHAR}, #{appKey,jdbcType=VARCHAR}, #{sendTotalQuantity,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{enabledMark,jdbcType=INTEGER}, 
+      #{deleteMark,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.clubank.sms.manage.app.pojo.AppInfo">
+    insert into app_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="appName != null">
+        app_name,
+      </if>
+      <if test="appSort != null">
+        app_sort,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="dismissal != null">
+        dismissal,
+      </if>
+      <if test="thirdId != null">
+        third_id,
+      </if>
+      <if test="signature != null">
+        signature,
+      </if>
+      <if test="appKey != null">
+        app_key,
+      </if>
+      <if test="sendTotalQuantity != null">
+        send_total_quantity,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="enabledMark != null">
+        enabled_mark,
+      </if>
+      <if test="deleteMark != null">
+        delete_mark,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null">
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appSort != null">
+        #{appSort,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dismissal != null">
+        #{dismissal,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdId != null">
+        #{thirdId,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null">
+        #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTotalQuantity != null">
+        #{sendTotalQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabledMark != null">
+        #{enabledMark,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null">
+        #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.clubank.sms.manage.app.pojo.AppInfo">
+    update app_info
+    <set>
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null">
+        app_name = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appSort != null">
+        app_sort = #{appSort,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dismissal != null">
+        dismissal = #{dismissal,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdId != null">
+        third_id = #{thirdId,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null">
+        app_key = #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTotalQuantity != null">
+        send_total_quantity = #{sendTotalQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabledMark != null">
+        enabled_mark = #{enabledMark,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null">
+        delete_mark = #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.clubank.sms.manage.app.pojo.AppInfo">
+    update app_info
+    set account_id = #{accountId,jdbcType=VARCHAR},
+      app_name = #{appName,jdbcType=VARCHAR},
+      app_sort = #{appSort,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      dismissal = #{dismissal,jdbcType=VARCHAR},
+      third_id = #{thirdId,jdbcType=VARCHAR},
+      signature = #{signature,jdbcType=VARCHAR},
+      app_key = #{appKey,jdbcType=VARCHAR},
+      send_total_quantity = #{sendTotalQuantity,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      enabled_mark = #{enabledMark,jdbcType=INTEGER},
+      delete_mark = #{deleteMark,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 通过应用编号、应用名称模糊查询，状态查询到的条数 -->
+  <select id="selectTotal" resultType="Integer">
+  	select count(0)
+   	from app_info
+   	where 1 = 1 and delete_mark = 0
+   	<if test="appSort != null and appSort != ''">
+   		and app_sort like concat('%',#{appSort,jdbcType=VARCHAR},'%')
+   	</if>
+   	<if test="appName != null and appName != ''">
+   		and app_name like concat('%',#{appName,jdbcType=VARCHAR},'%')
+   	</if>
+   	<if test="accountId != null and accountId != ''">
+   		and account_id = #{accountId,jdbcType=VARCHAR}
+   	</if>
+   	<if test="key == 1">
+   		and status = 0
+   	</if>
+  </select>
+  <!-- 通过应用编号、应用名称模糊查询，状态查询应用列表并分页 -->
+  <select id="selectAppListAndPage" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from app_info
+    where 1 = 1 and delete_mark = 0
+    <if test="appSort != null and appSort != ''">
+   		and app_sort like concat('%',#{appSort,jdbcType=VARCHAR},'%')
+   	</if>
+   	<if test="appName != null and appName != ''">
+   		and app_name like concat('%',#{appName,jdbcType=VARCHAR},'%')
+   	</if>
+   	<if test="accountId != null and accountId != ''">
+   		and account_id = #{accountId,jdbcType=VARCHAR}
+   	</if>
+   	<if test="key == 1">
+   		and status = 0
+   	</if>
+   	order by create_date desc
+   	<if test="startIndex &gt; -1">
+   		limit #{startIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+   	</if>
+  </select>
+  
+  <!-- 删除应用：将删除标记设置为1 -->
+  <update id="updateDeleteMark" parameterType="java.lang.Integer">
+  	update app_info
+  	set delete_mark = 1
+  	where id = #{appId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询账户下审核通过应用列表（新增模板：应用名称下拉框） -->
+  <select id="selectAppListByAccountId" parameterType="java.lang.String" resultType="HashMap">
+  	select 
+      id,
+      app_name AS appName
+    from app_info
+    where account_id = #{accountId,jdbcType=VARCHAR} and delete_mark = 0 and enabled_mark = 1 and status = 1
+  </select>
+  
+  <!-- 审核应用 -->
+  <update id="updateAuditApp">
+  	update app_info
+  	<set>
+      <if test="key != null">
+        status = #{key,jdbcType=INTEGER},
+      </if>
+      <if test="key == 1">
+      	third_id = #{thirdId,jdbcType=VARCHAR},
+      </if>
+      <if test="key == 2">
+      	dismissal = #{dismissal,jdbcType=VARCHAR},
+      </if>
+    </set>
+  	where id = #{appId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 通过应用名称获得应用信息 -->
+  <select id="selectAppInfoByAppName"  parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from app_info
+    where app_name = #{appName,jdbcType=VARCHAR} and delete_mark = 0
+  </select>
+  
+  <!-- 统计应用个数 -->
+  <select id="selectAppNumber" resultType="Integer">
+  	select count(0)
+  	from app_info
+  	where delete_mark = 0
+  </select>
+  
+  <!-- 统计待审核应用个数 -->
+  <select id="selectCheckPending" resultType="Integer">
+  	select count(0)
+  	from app_info
+  	where status = 0 and delete_mark = 0
+  </select>
+</mapper>

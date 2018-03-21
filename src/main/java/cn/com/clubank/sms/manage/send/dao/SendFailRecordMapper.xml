@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.clubank.sms.manage.send.dao.SendFailRecordMapper">
+  <resultMap id="BaseResultMap" type="cn.com.clubank.sms.manage.send.pojo.SendFailRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="record_id" jdbcType="VARCHAR" property="recordId" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="fail_status" jdbcType="INTEGER" property="failStatus" />
+    <result column="fail_desc" jdbcType="VARCHAR" property="failDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, record_id, mobile, fail_status, fail_desc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from send_fail_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from send_fail_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.clubank.sms.manage.send.pojo.SendFailRecord">
+    insert into send_fail_record (id, record_id, mobile, 
+      fail_status, fail_desc)
+    values (#{id,jdbcType=INTEGER}, #{recordId,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{failStatus,jdbcType=INTEGER}, #{failDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.clubank.sms.manage.send.pojo.SendFailRecord">
+    insert into send_fail_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="recordId != null">
+        record_id,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="failStatus != null">
+        fail_status,
+      </if>
+      <if test="failDesc != null">
+        fail_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recordId != null">
+        #{recordId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="failStatus != null">
+        #{failStatus,jdbcType=INTEGER},
+      </if>
+      <if test="failDesc != null">
+        #{failDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.clubank.sms.manage.send.pojo.SendFailRecord">
+    update send_fail_record
+    <set>
+      <if test="recordId != null">
+        record_id = #{recordId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="failStatus != null">
+        fail_status = #{failStatus,jdbcType=INTEGER},
+      </if>
+      <if test="failDesc != null">
+        fail_desc = #{failDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.clubank.sms.manage.send.pojo.SendFailRecord">
+    update send_fail_record
+    set record_id = #{recordId,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      fail_status = #{failStatus,jdbcType=INTEGER},
+      fail_desc = #{failDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.clubank.sms.manage.app.dao.AppTemplateMapper">
+  <resultMap id="BaseResultMap" type="cn.com.clubank.sms.manage.app.pojo.AppTemplate">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="app_name" jdbcType="VARCHAR" property="appName" />
+    <result column="app_sort" jdbcType="VARCHAR" property="appSort" />
+    <result column="temp_code" jdbcType="VARCHAR" property="tempCode" />
+    <result column="template_id" jdbcType="VARCHAR" property="templateId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="temp_content" jdbcType="VARCHAR" property="tempContent" />
+    <result column="dismissal" jdbcType="VARCHAR" property="dismissal" />
+    <result column="sms_type" jdbcType="INTEGER" property="smsType" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="enabled_mark" jdbcType="INTEGER" property="enabledMark" />
+    <result column="delete_mark" jdbcType="INTEGER" property="deleteMark" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, app_id, app_name, app_sort, temp_code, template_id, status, temp_content, dismissal, sms_type, create_date, 
+    modify_date, enabled_mark, delete_mark, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from app_template
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 根据模版编号获取模版详情 -->
+  <select id="selectByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    	temp.id, temp.app_id, temp.app_name, temp.app_sort, temp.temp_code, 
+    	temp.template_id, temp.status, temp.temp_content, temp.dismissal, temp.sms_type, 
+    	app.account_id AS accountId
+    from app_template temp left join app_info app ON app.id = temp.app_id
+    where temp.temp_code = #{code,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 根据模版编号获取第三方模版id -->
+  <select id="selectTemplateIdByCode" parameterType="java.lang.String" resultType="String">
+    select 
+    	template_id
+    from app_template
+    where temp_code = #{code,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from app_template
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.clubank.sms.manage.app.pojo.AppTemplate">
+    insert into app_template (id, app_id, app_name, app_sort,
+      temp_code, template_id, status, 
+      temp_content, dismissal, sms_type, create_date, 
+      modify_date, enabled_mark, delete_mark, 
+      description)
+    values (#{id,jdbcType=INTEGER}, #{appId,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, #{appSort,jdbcType=VARCHAR},
+      #{tempCode,jdbcType=VARCHAR}, #{templateId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{tempContent,jdbcType=VARCHAR}, #{dismissal,jdbcType=VARCHAR}, #{smsType,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{enabledMark,jdbcType=INTEGER}, #{deleteMark,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.clubank.sms.manage.app.pojo.AppTemplate">
+    insert into app_template
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="appId != null">
+        app_id,
+      </if>
+      <if test="appName != null">
+        app_name,
+      </if>
+      <if test="appSort != null">
+        app_sort,
+      </if>
+      <if test="tempCode != null">
+        temp_code,
+      </if>
+      <if test="templateId != null">
+        template_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="tempContent != null">
+        temp_content,
+      </if>
+      <if test="dismissal != null">
+        dismissal,
+      </if>
+      <if test="smsType != null">
+        sms_type,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="enabledMark != null">
+        enabled_mark,
+      </if>
+      <if test="deleteMark != null">
+        delete_mark,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null">
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appSort != null">
+        #{appSort,jdbcType=VARCHAR},
+      </if>
+      <if test="tempCode != null">
+        #{tempCode,jdbcType=VARCHAR},
+      </if>
+      <if test="templateId != null">
+        #{templateId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="tempContent != null">
+        #{tempContent,jdbcType=VARCHAR},
+      </if>
+      <if test="dismissal != null">
+        #{dismissal,jdbcType=VARCHAR},
+      </if>
+      <if test="smsType != null">
+        #{smsType,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabledMark != null">
+        #{enabledMark,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null">
+        #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.clubank.sms.manage.app.pojo.AppTemplate">
+    update app_template
+    <set>
+      <if test="appId != null">
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null">
+        app_name = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appSort != null">
+        app_sort = #{appSort,jdbcType=VARCHAR},
+      </if>
+      <if test="tempCode != null">
+        temp_code = #{tempCode,jdbcType=VARCHAR},
+      </if>
+      <if test="templateId != null">
+        template_id = #{templateId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="tempContent != null">
+        temp_content = #{tempContent,jdbcType=VARCHAR},
+      </if>
+      <if test="dismissal != null">
+        dismissal = #{dismissal,jdbcType=VARCHAR},
+      </if>
+      <if test="smsType != null">
+        sms_type = #{smsType,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabledMark != null">
+        enabled_mark = #{enabledMark,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null">
+        delete_mark = #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.clubank.sms.manage.app.pojo.AppTemplate">
+    update app_template
+    set app_id = #{appId,jdbcType=VARCHAR},
+      app_name = #{appName,jdbcType=VARCHAR},
+      app_sort = #{appSort,jdbcType=VARCHAR},
+      temp_code = #{tempCode,jdbcType=VARCHAR},
+      template_id = #{templateId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      temp_content = #{tempContent,jdbcType=VARCHAR},
+      dismissal = #{dismissal,jdbcType=VARCHAR},
+      sms_type = #{smsType,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      enabled_mark = #{enabledMark,jdbcType=INTEGER},
+      delete_mark = #{deleteMark,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 通过模板编号、应用编号、应用名称模糊查询到的条数 -->
+  <select id="selectTotal" resultType="Integer">
+  	select count(0)
+  	from 
+  	  app_template at
+  	  left join app_info ai
+  	    on at.app_id = ai.id
+  	where 1 = 1 and at.delete_mark = 0
+  	<if test="tempCode != null and tempCode != ''">
+  		and at.temp_code like concat('%',#{tempCode,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="appSort != null and appSort != ''">
+  		and at.app_sort like concat('%',#{appSort,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="appName != null and appName != ''">
+  		and at.app_name like concat('%',#{appName,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="accountId != null and accountId != ''">
+  		and ai.account_id = #{accountId,jdbcType=VARCHAR}
+  	</if>
+   	<if test="key == 1">
+   		and at.status = 0
+   	</if>
+  </select> 
+  <!-- 通过模板编号、应用编号、应用名称模糊查询模板列表并分页 -->
+  <select id="selectTemplateListAndPage" resultMap="BaseResultMap">
+  	select
+  	at.*
+  	from 
+  	  app_template at
+  	  left join app_info ai
+  	    on at.app_id = ai.id
+  	where 1 = 1 and at.delete_mark = 0
+  	<if test="tempCode != null and tempCode != ''">
+  		and at.temp_code like concat('%',#{tempCode,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="appSort != null and appSort != ''">
+  		and at.app_sort like concat('%',#{appSort,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="appName != null and appName != ''">
+  		and at.app_name like concat('%',#{appName,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="accountId != null and accountId != ''">
+  		and ai.account_id = #{accountId,jdbcType=VARCHAR}
+  	</if>
+   	<if test="key == 1">
+   		and at.status = 0
+   	</if>
+   	order by at.create_date desc
+   	<if test="startIndex &gt; -1">
+   		limit #{startIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+   	</if>
+  </select>
+  
+  <!-- 删除模板：将删除标记设置为1 -->
+  <update id="updateDeleteMark" parameterType="java.lang.Integer">
+  	update app_template
+  	set delete_mark = 1
+  	where id = #{tempId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 审核模板 -->
+  <update id="updateAuditTemplate">
+  	update app_template
+  	<set>
+      <if test="key != null">
+        status = #{key,jdbcType=INTEGER},
+      </if>
+      <if test="key == 1">
+      	template_id = #{templateId,jdbcType=VARCHAR},
+      </if>
+      <if test="key == 2">
+      	dismissal = #{dismissal,jdbcType=VARCHAR},
+      </if>
+    </set>
+  	where id = #{tempId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 统计待审核模板个数 -->
+  <select id="selectCheckPending" resultType="Integer">
+  	select count(0)
+  	from app_template
+  	where status = 0 and delete_mark = 0
+  </select>
+  
+  <!-- 获得应用下模板列表 -->
+  <select id="selectTempListByAppId" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from app_template
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </select>
+</mapper>

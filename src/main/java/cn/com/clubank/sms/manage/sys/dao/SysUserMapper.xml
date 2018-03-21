@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.clubank.sms.manage.sys.dao.SysUserMapper">
+  <resultMap id="BaseResultMap" type="cn.com.clubank.sms.manage.sys.pojo.SysUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="realname" jdbcType="VARCHAR" property="realname" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="enabled_mark" jdbcType="INTEGER" property="enabledMark" />
+    <result column="delete_mark" jdbcType="INTEGER" property="deleteMark" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, account_id, login_name, password, realname, gender, mobile, email, create_date, 
+    modify_date, enabled_mark, delete_mark, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询用户信息 -->
+  <select id="selectUserInfo" parameterType="java.lang.Integer" resultType="HashMap">
+	SELECT 
+	  su.id,
+	  su.account_id AS accountId,
+	  su.login_name AS loginName,
+	  su.password,
+	  su.realname,
+	  su.gender,
+	  su.mobile,
+	  su.email,
+	  su.description,
+	  ai.account_name AS accountName,
+	  ai.auth_account AS authAccount,
+	  ai.auth_pwd AS authPwd,
+	  ai.recharge_total AS rechargeTotal,
+	  ai.sms_total_quantity AS smsTotalQuantity,
+	  ai.handsel_total_quantity AS handselTotalQuantity,
+	  ai.send_total_quantity AS sendTotalQuantity
+	FROM
+	  sys_user su 
+	  LEFT JOIN account_info ai 
+	    ON su.account_id = ai.id 
+	WHERE su.id = #{userId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 删除用户：将删除标记设置为1 -->
+  <update id="updateDeleteMark" parameterType="java.lang.Integer">
+  	update sys_user
+  	set delete_mark = 1
+  	where id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="insert" parameterType="cn.com.clubank.sms.manage.sys.pojo.SysUser">
+    insert into sys_user (id, account_id, login_name, 
+      password, realname, gender, 
+      mobile, email, create_date, 
+      modify_date, enabled_mark, delete_mark, 
+      description)
+    values (#{id,jdbcType=INTEGER}, #{accountId,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{enabledMark,jdbcType=INTEGER}, #{deleteMark,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.clubank.sms.manage.sys.pojo.SysUser">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="loginName != null">
+        login_name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="realname != null">
+        realname,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="enabledMark != null">
+        enabled_mark,
+      </if>
+      <if test="deleteMark != null">
+        delete_mark,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabledMark != null">
+        #{enabledMark,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null">
+        #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.clubank.sms.manage.sys.pojo.SysUser">
+    update sys_user
+    <set>
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null">
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabledMark != null">
+        enabled_mark = #{enabledMark,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null">
+        delete_mark = #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.clubank.sms.manage.sys.pojo.SysUser">
+    update sys_user
+    set account_id = #{accountId,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      enabled_mark = #{enabledMark,jdbcType=INTEGER},
+      delete_mark = #{deleteMark,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 通过登录账号、姓名、手机模糊查询，状态查询到的总条数 -->
+  <select id="selectTotal" resultType="Integer">
+  	select count(0)
+  	from sys_user
+  	where 1 = 1 and delete_mark = 0 and account_id is not null
+  	<if test="loginName != null and loginName != ''">
+  		and login_name like concat('%',#{loginName,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="realname != null and realname != ''">
+  		and realname like concat('%',#{realname,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="mobile != null and mobile != ''">
+  		and mobile like concat('%',#{mobile,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="enabledMark == 1 or enabledMark == 0">
+  	 	and enabled_mark = #{enabledMark,jdbcType=INTEGER}
+  	</if>
+  </select>
+  <!-- 通过登录账号、姓名、手机模糊查询，状态查询用户列表并分页 -->
+  <select id="selectUserListAndPage" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where 1 = 1 and delete_mark = 0 and account_id is not null
+    <if test="loginName != null and loginName != ''">
+  		and login_name like concat('%',#{loginName,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="realname != null and realname != ''">
+  		and realname like concat('%',#{realname,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="mobile != null and mobile != ''">
+  		and mobile like concat('%',#{mobile,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="enabledMark == 1 or enabledMark == 0">
+  	 	and enabled_mark = #{enabledMark,jdbcType=INTEGER}
+  	</if>
+  	order by create_date desc
+  	<if test="startIndex &gt; -1">
+  		limit #{startIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <!-- 设置用户状态（有效标志：1-有效，0-无效） -->
+  <update id="updateEnabledMark">
+  	update sys_user
+  	set enabled_mark = #{enabledMark,jdbcType=INTEGER}
+  	where id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 通过账户id,获得账户下用户列表 -->
+  <select id="selectUserListByAccountId" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where account_id = #{accountId,jdbcType=VARCHAR} and delete_mark = 0
+  </select>
+  
+  <!-- 通过登录账号，获得用户信息 -->
+  <select id="selectUserInfoByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where login_name = #{loginName,jdbcType=VARCHAR} and delete_mark = 0
+  </select>
+</mapper>

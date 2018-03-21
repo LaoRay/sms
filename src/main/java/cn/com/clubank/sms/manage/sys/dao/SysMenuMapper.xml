@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.clubank.sms.manage.sys.dao.SysMenuMapper">
+  <resultMap id="BaseResultMap" type="cn.com.clubank.sms.manage.sys.pojo.SysMenu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="enabled_mark" jdbcType="INTEGER" property="enabledMark" />
+    <result column="delete_mark" jdbcType="INTEGER" property="deleteMark" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, parent_id, menu_name, menu_url, sort, create_date, modify_date, enabled_mark, 
+    delete_mark, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.clubank.sms.manage.sys.pojo.SysMenu">
+    insert into sys_menu (id, parent_id, menu_name, 
+      menu_url, sort, create_date, 
+      modify_date, enabled_mark, delete_mark, 
+      description)
+    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, 
+      #{menuUrl,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{enabledMark,jdbcType=INTEGER}, #{deleteMark,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.clubank.sms.manage.sys.pojo.SysMenu">
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="menuName != null">
+        menu_name,
+      </if>
+      <if test="menuUrl != null">
+        menu_url,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="enabledMark != null">
+        enabled_mark,
+      </if>
+      <if test="deleteMark != null">
+        delete_mark,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null">
+        #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabledMark != null">
+        #{enabledMark,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null">
+        #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.clubank.sms.manage.sys.pojo.SysMenu">
+    update sys_menu
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null">
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null">
+        menu_url = #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabledMark != null">
+        enabled_mark = #{enabledMark,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null">
+        delete_mark = #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.clubank.sms.manage.sys.pojo.SysMenu">
+    update sys_menu
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_url = #{menuUrl,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      enabled_mark = #{enabledMark,jdbcType=INTEGER},
+      delete_mark = #{deleteMark,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 按菜单名称模糊查询，状态查询到的条数 -->
+  <select id="selectTotal" resultType="Integer">
+  	select count(0)
+  	from sys_menu
+  	where 1 = 1 and delete_mark = 0 and (parent_id is not null || parent_id != '')
+  	<if test="menuName != null and menuName != ''">
+  		and menu_name like concat('%',#{menuName,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="enabledMark == 0 or enabledMark == 1">
+  		and enabled_mark = #{enabledMark,jdbcType=INTEGER}
+  	</if>
+  </select>
+  <!-- 按菜单名称模糊查询，状态查询菜单列表并分页 -->
+  <select id="selectMenuListAndPage" resultMap="BaseResultMap">
+   	select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where 1 = 1 and delete_mark = 0 and (parent_id is not null || parent_id != '')
+    <if test="menuName != null and menuName != ''">
+  		and menu_name like concat('%',#{menuName,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="enabledMark == 0 or enabledMark == 1">
+  		and enabled_mark = #{enabledMark,jdbcType=INTEGER}
+  	</if>
+  	order by create_date desc
+  	<if test="startIndex &gt; -1">
+  		limit #{startIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <!-- 删除菜单：将删除标记设置为1 -->
+  <update id="updateDeleteMark" parameterType="java.lang.Integer">
+  	update sys_menu
+  	set delete_mark = 1
+  	where id = #{menuId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 设置菜单状态（有效标志：1-有效，0-无效） -->
+  <update id="updateEnabledMark">
+  	update sys_menu
+  	set enabled_mark = #{enabledMark,jdbcType=INTEGER}
+  	where id = #{menuId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询父菜单 -->
+  <select id="selectParentMenu" resultType="HashMap">
+  	select
+  	  id,
+  	  menu_name AS menuName
+  	from sys_menu
+  	where (parent_id is null || parent_id = '') and delete_mark = 0
+  </select>
+  
+  <!-- 查询所有子菜单 -->
+  <select id="selectAllSubmenu" resultType="HashMap">
+  	select
+  	  id,
+  	  parent_id AS parentId,
+  	  menu_name AS menuName
+  	from sys_menu
+  	where (parent_id is not null || parent_id != '') and delete_mark = 0
+  </select>
+  
+  <!-- 通过角色sorts，获得角色具有权限的父菜单列表 -->
+  <select id="selectParentMenuByRoleSorts" resultMap="BaseResultMap">
+  	select
+  	  parentsm.*
+  	  
+  	from sys_role_menu srm left join sys_menu sm on srm.menu_id = sm.id 
+		left join sys_role ro on srm.role_id = ro.id
+		LEFT JOIN sys_menu parentsm on sm.parent_id = parentsm.id 
+		
+  	where sm.enabled_mark = 1
+  	<foreach collection="roles" item="roleSort" index="index" open="and ( " separator=" or " close=" )">
+    	ro.sort = #{roleSort,jdbcType=INTEGER}
+    </foreach>
+    GROUP BY sm.parent_id
+  </select>
+  
+  <!-- 通过角色sorts和父菜单id，获得角色具有权限的子菜单列表 -->
+  <select id="selectChildMenuByParentAndRoleSorts" resultMap="BaseResultMap">
+  	select
+  	  DISTINCT sm.id, sm.*
+  	  
+  	from sys_role_menu srm left join sys_menu sm on srm.menu_id = sm.id 
+		left join sys_role ro on srm.role_id = ro.id
+		
+  	where sm.enabled_mark = 1 and sm.parent_id = #{parentId,jdbcType=INTEGER} 
+  	<foreach collection="roles" item="roleSort" index="index" open="and ( " separator=" or " close=" )">
+    	ro.sort = #{roleSort,jdbcType=INTEGER}
+    </foreach>
+    ORDER BY sm.sort
+  </select>
+</mapper>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.clubank.sms.manage.sys.dao.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="cn.com.clubank.sms.manage.sys.pojo.SysRole">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="enabled_mark" jdbcType="INTEGER" property="enabledMark" />
+    <result column="delete_mark" jdbcType="INTEGER" property="deleteMark" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, role_name, sort, create_date, modify_date, enabled_mark, delete_mark, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 删除角色：将删除标记设置为1 -->
+  <update id="updateDeleteMark" parameterType="java.lang.Integer">
+  	update sys_role
+  	set delete_mark = 1
+  	where id = #{roleId,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="insert" parameterType="cn.com.clubank.sms.manage.sys.pojo.SysRole">
+    insert into sys_role (id, role_name, sort, 
+      create_date, modify_date, enabled_mark, 
+      delete_mark, description)
+    values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{enabledMark,jdbcType=INTEGER}, 
+      #{deleteMark,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.clubank.sms.manage.sys.pojo.SysRole">
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="enabledMark != null">
+        enabled_mark,
+      </if>
+      <if test="deleteMark != null">
+        delete_mark,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabledMark != null">
+        #{enabledMark,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null">
+        #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.clubank.sms.manage.sys.pojo.SysRole">
+    update sys_role
+    <set>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabledMark != null">
+        enabled_mark = #{enabledMark,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null">
+        delete_mark = #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.clubank.sms.manage.sys.pojo.SysRole">
+    update sys_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      enabled_mark = #{enabledMark,jdbcType=INTEGER},
+      delete_mark = #{deleteMark,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 按角色名称模糊查询，状态查询到的条数 -->
+  <select id="selectTotal" resultType="Integer">
+  	select count(0)
+  	from sys_role
+  	where 1 = 1 and delete_mark = 0
+  	<if test="roleName != null and roleName != ''">
+  		and role_name like concat('%',#{roleName,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="enabledMark == 0 or enabledMark == 1">
+  		and enabled_mark = #{enabledMark,jdbcType=INTEGER}
+  	</if>
+  </select>
+  <!-- 按角色名称模糊查询，状态查询角色列表并分页 -->
+  <select id="selectRoleListAndPage" resultMap="BaseResultMap">
+   	select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where 1 = 1 and delete_mark = 0
+    <if test="roleName != null and roleName != ''">
+  		and role_name like concat('%',#{roleName,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="enabledMark == 0 or enabledMark == 1">
+  		and enabled_mark = #{enabledMark,jdbcType=INTEGER}
+  	</if>
+  	order by create_date desc
+  	<if test="startIndex &gt; -1">
+  		limit #{startIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <!-- 设置角色状态（有效标志：1-有效，0-无效） -->
+  <update id="updateEnabledMark">
+  	update sys_role
+  	set enabled_mark = #{enabledMark,jdbcType=INTEGER}
+  	where id = #{roleId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 获得所有角色列表 -->
+  <select id="selectAllRoles" resultType="HashMap">
+  	select
+  	  id,
+  	  role_name AS roleName
+  	from sys_role
+  	where delete_mark = 0
+  </select>
+  
+  <!-- 通过角色序号，获得角色信息 -->
+  <select id="selectRoleInfoBySort" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where sort = #{sort,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 统计角色个数 -->
+  <select id="selectNumber" resultType="Integer">
+  	SELECT
+	  COUNT(0)
+	FROM
+	  sys_role
+  </select>
+</mapper>

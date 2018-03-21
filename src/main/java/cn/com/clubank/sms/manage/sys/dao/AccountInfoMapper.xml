@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.clubank.sms.manage.sys.dao.AccountInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.com.clubank.sms.manage.sys.pojo.AccountInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="account_sort" jdbcType="VARCHAR" property="accountSort" />
+    <result column="auth_account" jdbcType="VARCHAR" property="authAccount" />
+    <result column="auth_pwd" jdbcType="VARCHAR" property="authPwd" />
+    <result column="recharge_total" jdbcType="DECIMAL" property="rechargeTotal" />
+    <result column="sms_total_quantity" jdbcType="INTEGER" property="smsTotalQuantity" />
+    <result column="handsel_total_quantity" jdbcType="INTEGER" property="handselTotalQuantity" />
+    <result column="send_total_quantity" jdbcType="INTEGER" property="sendTotalQuantity" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="enabled_mark" jdbcType="INTEGER" property="enabledMark" />
+    <result column="delete_mark" jdbcType="INTEGER" property="deleteMark" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, account_name, account_sort, auth_account, auth_pwd, recharge_total, sms_total_quantity, 
+    handsel_total_quantity, send_total_quantity, create_date, modify_date, enabled_mark, 
+    delete_mark, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from account_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from account_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.clubank.sms.manage.sys.pojo.AccountInfo">
+    insert into account_info (id, account_name, account_sort, 
+      auth_account, auth_pwd, recharge_total, 
+      sms_total_quantity, handsel_total_quantity, 
+      send_total_quantity, create_date, modify_date, 
+      enabled_mark, delete_mark, description
+      )
+    values (#{id,jdbcType=INTEGER}, #{accountName,jdbcType=VARCHAR}, #{accountSort,jdbcType=VARCHAR}, 
+      #{authAccount,jdbcType=VARCHAR}, #{authPwd,jdbcType=VARCHAR}, #{rechargeTotal,jdbcType=DECIMAL}, 
+      #{smsTotalQuantity,jdbcType=INTEGER}, #{handselTotalQuantity,jdbcType=INTEGER}, 
+      #{sendTotalQuantity,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{enabledMark,jdbcType=INTEGER}, #{deleteMark,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.clubank.sms.manage.sys.pojo.AccountInfo">
+    insert into account_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="accountName != null">
+        account_name,
+      </if>
+      <if test="accountSort != null">
+        account_sort,
+      </if>
+      <if test="authAccount != null">
+        auth_account,
+      </if>
+      <if test="authPwd != null">
+        auth_pwd,
+      </if>
+      <if test="rechargeTotal != null">
+        recharge_total,
+      </if>
+      <if test="smsTotalQuantity != null">
+        sms_total_quantity,
+      </if>
+      <if test="handselTotalQuantity != null">
+        handsel_total_quantity,
+      </if>
+      <if test="sendTotalQuantity != null">
+        send_total_quantity,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="modifyDate != null">
+        modify_date,
+      </if>
+      <if test="enabledMark != null">
+        enabled_mark,
+      </if>
+      <if test="deleteMark != null">
+        delete_mark,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="accountName != null">
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountSort != null">
+        #{accountSort,jdbcType=VARCHAR},
+      </if>
+      <if test="authAccount != null">
+        #{authAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="authPwd != null">
+        #{authPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeTotal != null">
+        #{rechargeTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="smsTotalQuantity != null">
+        #{smsTotalQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="handselTotalQuantity != null">
+        #{handselTotalQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="sendTotalQuantity != null">
+        #{sendTotalQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabledMark != null">
+        #{enabledMark,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null">
+        #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.clubank.sms.manage.sys.pojo.AccountInfo">
+    update account_info
+    <set>
+      <if test="accountName != null">
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountSort != null">
+        account_sort = #{accountSort,jdbcType=VARCHAR},
+      </if>
+      <if test="authAccount != null">
+        auth_account = #{authAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="authPwd != null">
+        auth_pwd = #{authPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeTotal != null">
+        recharge_total = #{rechargeTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="smsTotalQuantity != null">
+        sms_total_quantity = #{smsTotalQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="handselTotalQuantity != null">
+        handsel_total_quantity = #{handselTotalQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="sendTotalQuantity != null">
+        send_total_quantity = #{sendTotalQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null">
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabledMark != null">
+        enabled_mark = #{enabledMark,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null">
+        delete_mark = #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.clubank.sms.manage.sys.pojo.AccountInfo">
+    update account_info
+    set account_name = #{accountName,jdbcType=VARCHAR},
+      account_sort = #{accountSort,jdbcType=VARCHAR},
+      auth_account = #{authAccount,jdbcType=VARCHAR},
+      auth_pwd = #{authPwd,jdbcType=VARCHAR},
+      recharge_total = #{rechargeTotal,jdbcType=DECIMAL},
+      sms_total_quantity = #{smsTotalQuantity,jdbcType=INTEGER},
+      handsel_total_quantity = #{handselTotalQuantity,jdbcType=INTEGER},
+      send_total_quantity = #{sendTotalQuantity,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      enabled_mark = #{enabledMark,jdbcType=INTEGER},
+      delete_mark = #{deleteMark,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!--根据id修改账户信息表的发送总短信条数-->
+  <update id="updateAmountByAccountId">
+    update account_info
+    set 
+      send_total_quantity = send_total_quantity + #{successQuantity,jdbcType=INTEGER} 
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 通过账户名称查询账户信息 -->
+  <select id="selectByAccountName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from account_info
+    where account_name = #{accountName,jdbcType=VARCHAR} and delete_mark = 0
+  </select>
+  
+  <!-- 统计账户个数 -->
+  <select id="selectAccountNumber" resultType="Integer">
+  	select count(0)
+  	from account_info
+  	where delete_mark = 0
+  </select>
+  
+  <!-- 查询账户列表（管理员首页） -->
+  <select id="selectAccountList" resultMap="BaseResultMap">
+  	select
+    <include refid="Base_Column_List" />
+    from account_info
+    where delete_mark = 0
+    order by create_date desc
+    limit 0, 10
+  </select>
+  
+  <!-- 查询所有账户（管理员统计用） -->
+  <select id="selectAllAcount" resultMap="BaseResultMap">
+  	select
+      id,
+      account_name
+    from account_info
+    where delete_mark = 0
+    order by create_date desc
+  </select>
+  
+  <!-- 删除账户：将删除标记设置为1 -->
+  <update id="updateDeleteMark" parameterType="java.lang.Integer">
+  	update account_info
+  	set delete_mark = 1
+  	where id = #{accountId,jdbcType=INTEGER}
+  </update>
+</mapper>

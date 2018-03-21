@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.clubank.sms.manage.sys.dao.AccountRechargeMapper">
+  <resultMap id="BaseResultMap" type="cn.com.clubank.sms.manage.sys.pojo.AccountRecharge">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="serial_number" jdbcType="VARCHAR" property="serialNumber" />
+    <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="recharge_amount" jdbcType="DECIMAL" property="rechargeAmount" />
+    <result column="single_price" jdbcType="DECIMAL" property="singlePrice" />
+    <result column="sms_quantity" jdbcType="INTEGER" property="smsQuantity" />
+    <result column="handsel_quantity" jdbcType="INTEGER" property="handselQuantity" />
+    <result column="send_quantity" jdbcType="INTEGER" property="sendQuantity" />
+    <result column="last_handsel_quantity" jdbcType="INTEGER" property="lastHandselQuantity" />
+    <result column="last_quantity" jdbcType="INTEGER" property="lastQuantity" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, serial_number, account_id, account_name, recharge_amount, single_price, sms_quantity, 
+    handsel_quantity, send_quantity, last_handsel_quantity, last_quantity, create_date, 
+    description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from account_recharge
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from account_recharge
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.clubank.sms.manage.sys.pojo.AccountRecharge">
+    insert into account_recharge (id, serial_number, account_id, 
+      account_name, recharge_amount, single_price, 
+      sms_quantity, handsel_quantity, send_quantity, 
+      last_handsel_quantity, last_quantity, create_date, 
+      description)
+    values (#{id,jdbcType=INTEGER}, #{serialNumber,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, 
+      #{accountName,jdbcType=VARCHAR}, #{rechargeAmount,jdbcType=DECIMAL}, #{singlePrice,jdbcType=DECIMAL}, 
+      #{smsQuantity,jdbcType=INTEGER}, #{handselQuantity,jdbcType=INTEGER}, #{sendQuantity,jdbcType=INTEGER}, 
+      #{lastHandselQuantity,jdbcType=INTEGER}, #{lastQuantity,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.clubank.sms.manage.sys.pojo.AccountRecharge">
+    insert into account_recharge
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="serialNumber != null">
+        serial_number,
+      </if>
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="accountName != null">
+        account_name,
+      </if>
+      <if test="rechargeAmount != null">
+        recharge_amount,
+      </if>
+      <if test="singlePrice != null">
+        single_price,
+      </if>
+      <if test="smsQuantity != null">
+        sms_quantity,
+      </if>
+      <if test="handselQuantity != null">
+        handsel_quantity,
+      </if>
+      <if test="sendQuantity != null">
+        send_quantity,
+      </if>
+      <if test="lastHandselQuantity != null">
+        last_handsel_quantity,
+      </if>
+      <if test="lastQuantity != null">
+        last_quantity,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serialNumber != null">
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAmount != null">
+        #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="singlePrice != null">
+        #{singlePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="smsQuantity != null">
+        #{smsQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="handselQuantity != null">
+        #{handselQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="sendQuantity != null">
+        #{sendQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="lastHandselQuantity != null">
+        #{lastHandselQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="lastQuantity != null">
+        #{lastQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.clubank.sms.manage.sys.pojo.AccountRecharge">
+    update account_recharge
+    <set>
+      <if test="serialNumber != null">
+        serial_number = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAmount != null">
+        recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="singlePrice != null">
+        single_price = #{singlePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="smsQuantity != null">
+        sms_quantity = #{smsQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="handselQuantity != null">
+        handsel_quantity = #{handselQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="sendQuantity != null">
+        send_quantity = #{sendQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="lastHandselQuantity != null">
+        last_handsel_quantity = #{lastHandselQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="lastQuantity != null">
+        last_quantity = #{lastQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.clubank.sms.manage.sys.pojo.AccountRecharge">
+    update account_recharge
+    set serial_number = #{serialNumber,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      single_price = #{singlePrice,jdbcType=DECIMAL},
+      sms_quantity = #{smsQuantity,jdbcType=INTEGER},
+      handsel_quantity = #{handselQuantity,jdbcType=INTEGER},
+      send_quantity = #{sendQuantity,jdbcType=INTEGER},
+      last_handsel_quantity = #{lastHandselQuantity,jdbcType=INTEGER},
+      last_quantity = #{lastQuantity,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 根据账户id修改账户的发送短信条数及剩余短信条数 -->
+  <update id="updateAmountByIdAndSuccess">
+    update account_recharge
+    set 
+      send_quantity = send_quantity + #{successQuantity,jdbcType=INTEGER},
+      last_quantity = last_quantity - #{successQuantity,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 充值记录的短信条数使用结束 -->
+  <update id="lastQuantityUseEnd">
+    update account_recharge
+    set 
+      send_quantity = send_quantity + last_quantity,
+      last_quantity = 0
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 通过账户名称模糊查询，充值时间查询到充值记录的条数 -->
+  <select id="selectTotal" resultType="Integer">
+  	select count(0)
+  	from account_recharge
+  	where 1 = 1
+  	<if test="accountName != null and accountName != ''">
+  		and account_name like concat('%',#{accountName,jdbcType=VARCHAR},'%')
+  	</if>
+  	<if test="dateOne != null and dateOne != ''">
+  		and create_date <![CDATA[>=]]> CONCAT(#{dateOne}, ' 0:0:0')
+  	</if>
+  	<if test="dateTwo != null and dateTwo != ''">
+  		and create_date <![CDATA[<=]]> CONCAT(#{dateTwo}, ' 23:59:59')
+  	</if>
+  </select>
+  <!-- 通过账户名称模糊查询，充值时间查询充值记录并分页 -->
+  <select id="selectRechargeListAndPage" resultMap="BaseResultMap">
+  	select
+  	  id, 
+  	  serial_number,
+  	  account_name,
+  	  recharge_amount,
+  	  single_price,
+  	  sms_quantity,
+  	  handsel_quantity,
+  	  send_quantity,
+  	  create_date
+    from 
+      account_recharge
+    where 1 = 1
+  	<if test="accountName != null and accountName != ''">
+  		and account_name = #{accountName,jdbcType=VARCHAR}
+  	</if>
+  	<if test="dateOne != null and dateOne != ''">
+  		and create_date <![CDATA[>=]]> CONCAT(#{dateOne}, ' 0:0:0')
+  	</if>
+  	<if test="dateTwo != null and dateTwo != ''">
+  		and create_date <![CDATA[<=]]> CONCAT(#{dateTwo}, ' 23:59:59')
+  	</if>
+  	order by create_date desc
+  	<if test="startIndex &gt; -1">
+  		limit #{startIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  	</if>
+  </select>
+  
+  <!-- 通过账户id,获得账户下所有充值记录 -->
+  <select id="selectRechargeListByAccountId" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from account_recharge
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 根据账户id查询账户的剩余短信总条数 -->
+  <select id="totalLastQuantity" resultType="Integer">
+  	select ifnull(sum(last_quantity), 0)
+  	from account_recharge
+  	where last_quantity > 0 and account_id = #{accountId,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 获取存在剩余条数，并且最早的充值记录 -->
+  <select id="getHaveLastEarliest" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from account_recharge
+    where last_quantity > 0 and account_id = #{accountId,jdbcType=VARCHAR}
+    order by create_date ASC
+    limit 0, 1
+  </select>
+</mapper>
